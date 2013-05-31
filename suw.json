@@ -1,0 +1,28 @@
+{
+  "name": "suw",
+  "title": "Simple UI Widget",
+  "description": "Simple Framework for build UI Widget",
+  "version": "0.1.0",
+  "homepage": "",
+  "author": {
+    "name": "Francesco Dalprà",
+    "email": "jabba.dev@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "*"
+  },
+  "keywords": []
+}

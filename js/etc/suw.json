@@ -1,0 +1,9 @@
+{
+	"js": {
+		"jqueryUI": { "url": "resources/libs/jquery-ui-1.10.3.min.js" },
+		"baseWidget": { "url": "resources/libs/suwBaseWidget.js","require": ["jqueryUI"] }
+	},
+	"css": {
+		"themaUI": { "url": "resources/css/dark-hive/jquery-ui-1.10.3.min.css.js"}
+	}
+}
