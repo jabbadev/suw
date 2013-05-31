@@ -56,7 +56,7 @@ module.exports = function(grunt) {
     uglify: {},
     connect: {
         suw: {
-          port: 8080,
+          port: 80,
           base: '.'
         }
       }

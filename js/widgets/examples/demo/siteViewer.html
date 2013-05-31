@@ -1,17 +1,20 @@
 <html>
 	<head>
-		<title>Demo for [ submitSite ] widget</title>
+		<title>Demo for [ siteViewer ] widget</title>
 		<script type="text/javascript" charset="utf-8" src="/js/suw.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			function main($){
-				$.wrl.loadJS('loader','submitSite',function(){
-					$('#submitSite').submitSite();
+				$.wrl.loadJS('loader','siteViewer',function(){
+					$('#siteViewer').siteViewer({
+						url: "http://www.gentoo.org/"
+						//url: "http://webbank.hbl.local/jrubrica/"
+					});
 				});
 				//suw.widgets('#submitSite',"submitSite");
 			}
 		</script>
 	</head>
 	<body>
-		<div id="submitSite"></div>
+		<div id="siteViewer"></div>
 	</body>
 </html>

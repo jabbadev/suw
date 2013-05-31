@@ -2,13 +2,19 @@
 	"js": {
 		"jqueryUI": { "url": "/js/libs/jquery-ui-1.10.3.min.js" },
 		"baseWidget": { "url": "/js/jquery.suw.suwBaseWidget.js","require": ["jqueryUI:wait"] },
-		"submitSite": { "url": "/js/widgets/examples/js/jquery.suw.submitSite.js", "require": ["baseWidget"] }
+		"submitSite": { "url": "/js/widgets/examples/js/jquery.suw.submitSite.js", "require": ["baseWidget"] },
+		"siteViewer": { "url": "/js/widgets/examples/js/jquery.suw.siteViewer.js", "require": ["baseWidget"] },
+		"browserWidget": { "url": "/js/widgets/examples/js/jquery.suw.browserWidget.js", "require": ["baseWidget","submitSite","siteViewer"] }
 	},
 	"css": {
 		"themaUI": { "url": "/js/css/dark-hive/jquery-ui-1.10.3.min.css"},
-		"submitSite": { "url": "/js/widgets/examples/css/submitSite.css", "require": ["themaUI"] }
+		"submitSite": { "url": "/js/widgets/examples/css/submitSite.css", "require": ["themaUI"] },
+		"siteViewer": { "url": "/js/widgets/examples/css/siteViewer.css", "require": ["themaUI"] },
+		"browserWidget": { "require": ["themaUI"] }
 	},
 	"get": {
-		"submitSite": { "url": "/js/widgets/examples/html/submitSite.html" }
+		"submitSite": { "url": "/js/widgets/examples/html/submitSite.html" },
+		"siteViewer": { "url": "/js/widgets/examples/html/siteViewer.html" },
+		"browserWidget": { "url": "/js/widgets/examples/html/browserWidget.html" }
 	}
 }
