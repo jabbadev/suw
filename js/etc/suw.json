@@ -1,9 +1,14 @@
 {
 	"js": {
-		"jqueryUI": { "url": "resources/libs/jquery-ui-1.10.3.min.js" },
-		"baseWidget": { "url": "resources/libs/suwBaseWidget.js","require": ["jqueryUI"] }
+		"jqueryUI": { "url": "/js/libs/jquery-ui-1.10.3.min.js" },
+		"baseWidget": { "url": "/js/jquery.suw.suwBaseWidget.js","require": ["jqueryUI:wait"] },
+		"submitSite": { "url": "/js/widgets/examples/js/jquery.suw.submitSite.js", "require": ["baseWidget"] }
 	},
 	"css": {
-		"themaUI": { "url": "resources/css/dark-hive/jquery-ui-1.10.3.min.css.js"}
+		"themaUI": { "url": "/js/css/dark-hive/jquery-ui-1.10.3.min.css"},
+		"submitSite": { "url": "/js/widgets/examples/css/submitSite.css", "require": ["themaUI"] }
+	},
+	"get": {
+		"submitSite": { "url": "/js/widgets/examples/html/submitSite.html" }
 	}
 }

@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<title>Demo for [ submitSite ] widget</title>
+		<script type="text/javascript" charset="utf-8" src="/js/suw.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			function main($){
+				
+				$.wrl.loadJS('loader','submitSite',function(){
+					$('#submitSite').submitSite();
+				});
+				
+				//suw.widgets('#submitSite',"submitSite");
+			}
+		</script>
+	</head>
+	<body>
+		<div id="submitSite"></div>
+	</body>
+</html>

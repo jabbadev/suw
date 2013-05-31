@@ -1,6 +1,6 @@
-(function(suw){
+(function(global,conf){
+	var suw = global[conf.suwNS], $ = suw.jq;
 	suw.baseWidget = suw.jq.Widget;
-	var $ = suw.jq;
 
 	suw.baseWidget.prototype["_setupEvents"] = function() {
 		var enp = new RegExp('^on[A-Z].+'), key; 
@@ -17,43 +17,44 @@
 		}
 	};
 	
+	suw.baseWidget.prototype["_completeSetup"] = function() {
+		this._setupCssRes();
+		this._setupEvents();
+		this._loadInput();
+		if ( ! window.console ){
+			window.console = { info:function(){},error:function(){},debug:function(){},warn:function(){},log:function(){}};
+		}
+		this.setupBusinessLogic();
+	}
+	
 	suw.baseWidget.prototype["_setupHtmlRes"] = function() {
+		var $this = this;
 		if ( typeof this.options.staticHtml == "undefined" || this.options.staticHtml ){
 			var resHTML = this.options.resHTML || this.widgetName;
-			suw.rl.loadHTML(resHTML,function(data){
-					this.element.html(data);
-				},
-				this.onAjaxError,
-				this,false
-			);
+			$.wrl.loadGET("loader",resHTML,function(htmlRes){
+				$this.element.html(htmlRes[0].data);
+				$this._completeSetup();
+			});
+		}
+		else {
+			this._completeSetup();
 		}
 	};
 	
 	suw.baseWidget.prototype["_setupCssRes"] = function() {
 		var $this = this, resCSS;
 		resCSS = this.options.resCSS || this.widgetName;
-		suw.rl.loadCSS(resCSS,function(){
-			if ( typeof $this.options.docguiThema != "undefined" && !$this.options.docguiThema ){
-				$('link').each(function(i,link){
-					if(themaURL.test(link.href)){
-						$(link).remove();
-					}
-				});
-			}
-		});
+		$.wrl.loadCSS('loader',resCSS);
 	};
 	
 	suw.baseWidget.prototype["_setupJsRes"] = function(){
-		suw.rl.loadJS(this.widgetName,
-			this.setupBusinessLogic,
-			this		
-		);
+		$.wrl.loadJS('loader',this.widgetName,this.setupBusinessLogic);
 	};
 	
 	suw.baseWidget.prototype["_loadInput"] = function(){
 		this.options.chkBaseWidgetIMD = true;
 		
-		suw.jq.extend(this.options, this.element.metadata());
+		$.extend(this.options, this.element.data());
 		
 		if ( typeof(this.options.loadInput) === 'function'){
 			this.options.input = this.options.loadInput();
@@ -62,36 +63,22 @@
 		if ( this.options.chkBaseWidgetIMD ){
 			var metaData = this.element.find('div.baseWidgetIMD');
 			if ( metaData.length ){
-				suw.jq.extend( this.options,metaData.metadata() );
+				$.extend( this.options,metaData.data() );
 			}
 		}
 	};
 	
 	suw.baseWidget.prototype["_create"] = function() {
 		this._setupHtmlRes();
+		/*
 		this._setupCssRes();
 		this._setupEvents();
 		this._loadInput();
-		
-		if ( this.options.debug ){
-			
-			if ( suw.jq.browser.msie ){
-				suw.rl.loadJS("console",function(){
-					window.console = log4javascript.getDefaultLogger();
-					this.setupBusinessLogic();
-				},this);
-			}
-			else {
-				this.setupBusinessLogic();
-			}
+		if ( ! window.console ){
+			window.console = { info:function(){},error:function(){},debug:function(){},warn:function(){},log:function(){}};
 		}
-		else {
-			if ( ! window.console ){
-				window.console = { info:function(){},error:function(){},debug:function(){},warn:function(){},log:function(){}};
-			}
-			this.setupBusinessLogic();
-		}
-		//this._setupJsRes();
+		this.setupBusinessLogic();
+		*/
 	};
 	
 	suw.baseWidget.prototype["overWriteEvent"] = function( eventName,eventFunction ){
@@ -144,47 +131,5 @@
 	suw.baseWidget.prototype["onStopProgress"] = function(event,eventData){
 		console.info('fire event "onStopProgress(' + event +',' + JSON.stringify(eventData) + ')"');
 	};
-	suw.baseWidget.prototype["onLightNotify"] = function(event,eventData){
-		var opt = { 
-            message: eventData.message, 
-            fadeIn: ( eventData.fadeIn ) && eventData.fadeIn || 700, 
-            fadeOut: ( eventData.fadeOut ) && eventData.fadeOut || 700, 
-            timeout: ( eventData.timeout ) && eventData.timeout || 2000, 
-            showOverlay: false, 
-            centerY: false, 
-            css: { 
-                width: '350px', 
-                top: '10px', 
-                left: '', 
-                right: '10px', 
-                border: 'none', 
-                padding: '5px', 
-                backgroundColor: '#000', 
-                '-webkit-border-radius': '10px', 
-                '-moz-border-radius': '10px', 
-                opacity: .6, 
-                color: '#fff' 
-            } 
-        };
-		
-		if ( eventData.noTimeOut ){
-			delete opt.timeout;
-		}
-		$.blockUI(opt);
-	};
-	suw.baseWidget.prototype["onBlockNotify"] = function(event,eventData){
-		$.blockUI({ 
-            message: eventData.message, 
-            timeout: ( eventData.timeout ) && eventData.timeout || 2000
-        }); 
-	};
-	suw.baseWidget.prototype["onBlock"] = function(event,eventData){
-		$.blockUI({ 
-            message: eventData.message
-        });
-	};
-	suw.baseWidget.prototype["onUnBlock"] = function(event,eventData){
-		$.unblockUI();
-	};
 	
-})(suw);
+})(window,{ suwNS: "suw" });

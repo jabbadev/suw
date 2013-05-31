@@ -1,0 +1,10 @@
+.suw-input {
+	padding: 8px;
+	background: #ddd;
+	border: none;
+	vertical-align: top;
+	font-weight: bold;
+	font-size: 12px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}

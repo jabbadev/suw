@@ -12,13 +12,30 @@
 	
 	this[suw].ready = function(callback){
 		var t = setInterval(function(){
-			console.log(jqReady,wrlReady);
 			if( jqReady && wrlReady ){
 				clearInterval(t);
 				global[suw].jq.type(callback)=="function" && callback(global[suw].jq);
 			}
 		},1);
 	}
+	
+	this[suw].widgets = function() {
+		var self = this;
+		var args = [];
+		for( var i = 0; i < arguments.length; i++ ){
+			args.push(arguments[i]);
+		}
+		var jqsel = args.shift();
+		var wname = args.shift();
+		
+		this.ready(function(){
+			self.jq(function(){
+				self.jq.wrl.loadJS('loader',wname,function(){
+					self.jq(jqsel)[wname](args[0]);
+				});
+			});
+		});
+	};
 	
 	if (global.jQuery === undefined || global.jQuery.fn.jquery !== '1.7') {
 	    var script_tag = document.createElement('script');
